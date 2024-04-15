@@ -32,4 +32,7 @@ export class AppComponent {
       discontinued: false,
     },
   ];
+  onButtonClick() {
+    console.log('Button clicked');
+  }
 }

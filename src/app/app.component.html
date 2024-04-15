@@ -1,16 +1,30 @@
+<app-navbar></app-navbar>
 {{ title }}
-<app-button> 
-  <span>Primary</span>
+<app-button variant="warning" (buttonClick)="onButtonClick()">
+  <!-- <ng-content></ng-content> -->
+  Button
 </app-button>
 
 <ul>
+  <!-- < Angular 17 -->
   <ng-container *ngFor="let product of products">
-    <li  *ngIf="!product.discontinued;  else discontinuedElse">{{product.name}} | {{product.price}}</li>
+    <li *ngIf="!product.discontinued; else discontinuedElse">
+      {{ product.name }} - {{ product.price }}
+    </li>
     <ng-template #discontinuedElse>
-      <li>{{product.name}} discontunied</li>
+      <li>{{ product.name }} discontinued.</li>
     </ng-template>
   </ng-container>
+
+  <!-- >= Angular 17 -->
+  @for(product of products; track product.name) {
+    @if(!product.discontinued) {
+      <li>{{ product.name }} - {{ product.price }}</li>
+    }
+    @else {
+      <li>{{ product.name }} discontinued.</li>
+    }
+  }
 </ul>
 
-<app-navbar></app-navbar>
 <app-footer></app-footer>
